@@ -3,6 +3,7 @@ package com.example.nykka_assignment
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,9 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.nykka_assignment.presentation.ui.screens.cat.CatScreen
+import com.example.nykka_assignment.presentation.ui.screens.cat.CatViewModel
 import com.example.nykka_assignment.ui.theme.Nykka_AssignmentTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val catViewModel: CatViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,11 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LazyColumn(content = {
-                        items(getDataList()) { it ->
-                            TextWidget(title = it)
-                        }
-                    })
+                        CatScreen(viewModel = catViewModel)
                 }
             }
         }
